@@ -8,8 +8,8 @@ Original file is located at
 """
 
 # Library 'datasets' needs to be installed separately while using Google Colab
-!pip install datasets
-pip install catboost
+# !pip install datasets
+# pip install catboost
 
 # Importing all required libraries
 import sys

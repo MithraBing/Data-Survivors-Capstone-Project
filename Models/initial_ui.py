@@ -56,7 +56,8 @@ if uploaded_file is not None:
         text_input = getText(docx_file)
 
 # %% ui_testing.ipynb 6
-import functioned_model as fm
+import functioned_model_2_0 as fm
+import case_summarization as cs
 
 def display_material(text_input):
     
@@ -64,7 +65,9 @@ def display_material(text_input):
     st.subheader("NER Extractions -- Coming Soon!")
     
     #Placeholder for input summary
-    st.subheader("Input Summary -- Coming Soon!")
+    st.subheader("Input Summary")
+    summary = cs.extract_summary(text_input)
+    st.write(summary)
     
     #Placeholder for input visualizations
     st.subheader("Visualizations -- Coming Soon!")
