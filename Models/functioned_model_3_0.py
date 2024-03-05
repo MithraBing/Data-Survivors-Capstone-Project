@@ -8,8 +8,8 @@ Original file is located at
 """
 
 # Library 'datasets' needs to be installed separately while using Google Colab
-!pip install datasets
-!pip install catboost
+# !pip install datasets
+# !pip install catboost
 
 # Importing all required libraries
 import sys
@@ -200,14 +200,25 @@ def classification(value):
     val = 0
   else:
     val = 1
-  return [fin[0],val]
+
+  # Gather top features contributing to the classification
+  feature_names = vectorizer.get_feature_names()
+  # top_positive_features = [feature_names[idx] for idx in np.argsort(-clf.coef_[0])[:5]]  # Assuming you're using MultinomialNB
+  # top_negative_features = [feature_names[idx] for idx in np.argsort(clf.coef_[0])[:5]]
+  
+  # # Construct an explanation based on top features
+  # explanation = f"Top positive features: {', '.join(top_positive_features)}\n"
+  # explanation += f"Top negative features: {', '.join(top_negative_features)}\n"
+  
+  return [fin[0], val]
 
 #v12 = "In the United States District Court for the District of Columbia, the case between the United States of America and Derrek K. Arrington (Case No. 00-cr-159-RCL) has been under review . Mr. Arrington, the defendant, filed a motion to vacate his previous sentence under 28 U.S.C. § 2255. He had initially been given a twenty-year sentence after being found guilty by a jury of assaulting a federal officer with a dangerous weapon (18 U.S.C. § 111(a) and (b)) and illegal possession of a firearm as a convicted felon (18 U.S.C. §§ 922(g) and 924(a)(2)). This court, however , had decided to dismiss his appeal due to its untimely nature under 28 U.S.C. § 2255(f)(3) (United States v. Arrington, No. 00-cr-159 (RCL), 2019 WL 4644381, at *3–4 (D.D.C. Sept. 24, 2019), rev’d, 4 F.4th 162 (D.C. Cir. 2021)). The D.C. Circuit Court had overturned this decision and sent it back for further processing which resulted in the court deciding to grant Mr. Arrington's motion under § 2255, and his sentence was vacated. The court has also decided to resentence him at a future date. Background The root cause of Mr. Arrington's convictions was a traffic violation which escalated into a high-speed pursuit and culminated in him shooting a police officer in the face. On April 13, 2000, officers from the United States Park Police pulled over Mr. Arrington after noticing suspected drugs in his car. However , Mr. Arrington refused to exit his vehicle and instead attempted to speed away . Two officers tried to stop him but were unable to do so. One officer, Officer Daniels, was dragged through an intersection as Mr. Arrington attempted to escape. The pursuit ended when Mr. Arrington fled on foot, but not before shooting Officer Daniels in the face, causing significant facial paralysis and necessitating nerve surgery . Mr. Arrington was indicted on several felony charges and the case went to trial before Judge James Robertson. On September 18, 2000, the jury convicted Mr. Arrington of assaulting a federal officer with a dangerous weapon (18 U.S.C. § 111(a) and (b)) and unlawfully having a firearm as a convicted felon (18 U.S.C. §§ 922(g) and 924(a)(2)). However , the jury could not agree on the remaining charges. Given his previous convictions for two armed robbery offenses, Mr. Arrington was eligible for a heightened sentence of 210 to 262 months. However , due to the 10-year statutory maximum on his counts, the sentencing range was reduced to 210 to 240 months. The court considered his previous convictions for armed robbery as crimes of violence under the guidelines, leading to certain enhancements. At the time, the court had to adhere strictly to the sentencing guidelines (United States v. Booker , 543 U.S. 220, 233 (2005)). Eventually , Mr. Arrington was given a sentence of 240 months, the maximum under the guidelines. Further , as described by the Circuit in its reversal and remand opinion, Mr. Arrington's increased sentencing range was due to two guidelines provisions. The first, § 2K2.1(a), increased the base offense level for a defendant who had at least two prior felony convictions of either a violent crime or a controlled substance offense (U.S.S.G. § 2K2.1(a)(2) (Nov . 2000)). The second provision, § 4B1.1, classified a defendant as a career offender and imposed sentencing enhancements if three conditions were satisfied: 1) the defendant was at least eighteen years old at the time of the offense, 2) the offense was either a violent crime or a controlled substance offense, and 3) the defendant had at least two prior felony convictions of either a violent crime or a controlled substance offense (U.S.S.G. § 4B1.1(a) (Nov . 2000))."
 
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 def summarization(value):
-  summ = summarizer(value, max_length=130, min_length=30, do_sample=False)
+  value = value[0:3000]
+  summ = summarizer(value, max_length=180, min_length=30, do_sample=False)
   return summ[0]['summary_text']
 
 #v1 = summarization(v12)
