@@ -13,7 +13,7 @@ Authentic Legal Documents: Authentic Washington case documents collected from Co
 
 AI Generated Synthetic Data: Synthetic documents were generated using a different prompts and and temperatures Chat-GPT.
 
-Risks and Challenges:
+<h3>Risks and Challenges:</h3>
 
 NER:
 Although we expect NER to work as it normally does, that might not be the case in the legal domain, considering the different structurization of a few entities.
